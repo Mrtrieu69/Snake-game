@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #253645;
+        }
+
+        .app{
+            position: relative;
+        }
+
+        .layout{
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            top: 33px;
+            left: 0;
+            z-index: -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .game-over{
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            width: 403px;
+            height: 403px;
+            top: 32px;
+            left: 0;
+            z-index: 1;
+            justify-content: center;
+            align-items: center;
+            background-color: #2375d6;
+            animation: fadeIn ease 0.7s;
+        }
+
+        .square{
+            width: 20px;
+            height: 20px;
+            background-color: #202c37;
+        }
+
+        .square.special{
+            background-color: #253645;
+        }
+
+        #canvas{
+            background-color: transparent;
+            border: 1px solid white;
+        }
+
+        .score{
+            width: 400px;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .restart{
+            margin-top: 40px;
+            padding: 12px 8px;
+            border: 1px solid white;
+            color: white;
+            cursor: pointer;
+            transition: all ease 0.3s;
+        }
+
+        .title{
+            color: white;
+        }
+
+        .restart:hover{
+            color: black;
+        }
+
+        @keyframes fadeIn {
+            from{
+                opacity: 0;
+            }
+            to{
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="score">
+            <div class="score-now"></div>
+            <div class="score-record"></div>
+        </div>
+        <div class="layout"></div>
+        <div class="game-over">
+            <h1 class="title">Game over</h1>
+            <div class="restart">Restart</div>
+        </div>
+        <canvas id="canvas" width="400" height="400"></canvas>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
