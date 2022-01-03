@@ -78,8 +78,11 @@
         }
 
         .restart{
+            font-size: 20px;
+            text-align: center;
+            min-width: 100px;
             margin-top: 40px;
-            padding: 12px 8px;
+            padding: 8px 8px;
             border: 1px solid white;
             color: white;
             cursor: pointer;
@@ -91,7 +94,33 @@
         }
 
         .restart:hover{
-            color: black;
+            background-color: #253645;
+        }   
+
+        .controls{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .control{
+            cursor: pointer;
+            text-align: center;
+            color: white;
+            min-width: 100px;
+            border: 1px solid white;
+            font-size: 20px;
+            margin-top: 20px;
+            padding: 8px 8px;
+            transition: all ease 0.5s;
+        }
+
+        .control.active{
+            background-color:#065fcc;
+        }
+
+        .control:not(.active):hover{
+            background-color:#559bf1;
         }
 
         @keyframes fadeIn {
@@ -116,6 +145,11 @@
             <div class="restart">Restart</div>
         </div>
         <canvas id="canvas" width="400" height="400"></canvas>
+        <div class="controls">
+            <div class="control easy">Easy</div>
+            <div class="control normal active">Normal</div>
+            <div class="control hard">Hard</div>
+        </div>
     </div>
     <script src="app.js"></script>
 </body>

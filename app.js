@@ -4,6 +4,7 @@ const ctx = canvas.getContext("2d")
 const scoreNow = document.querySelector(".score-now")
 const scoreRecord = document.querySelector(".score-record")
 const gamOver = document.querySelector(".game-over")
+const controls = document.querySelectorAll(".controls")
 
 const RECORD_STORAGE_KEY = "RECORD"
 
@@ -140,10 +141,18 @@ const food = Food()
 function Game(){
     snake
     food
+    var speed = 90
     var scoreRecordEl
     var config = JSON.parse(localStorage.getItem(RECORD_STORAGE_KEY)) || {}
 
     return{
+        getSpeed(){
+            return speed
+        },
+        setSpeed(_speed){
+            speed = _speed
+        },
+
         setConfig(key, value){
             config[key] = value
             localStorage.setItem(RECORD_STORAGE_KEY, JSON.stringify(config))
@@ -179,7 +188,7 @@ function Game(){
             snake.draw()
             food.draw()
         },
-        restart(){
+        restart(_speed){
             snake.setSize([{ x: 0, y: 0}])
             snake.setX(0)
             snake.setY(0)
@@ -187,7 +196,7 @@ function Game(){
             scoreNow.innerHTML = "Score: 0"
             setIntervalEl = setInterval(() => {
                 game.start()
-            }, 60);            
+            }, _speed);            
         },
         start(){
             this.update()
@@ -201,7 +210,7 @@ function Game(){
 const game = Game()
 var setIntervalEl = setInterval(() => {
     game.start()
-}, 60);
+}, game.getSpeed());
 
 
 // Layout
@@ -227,5 +236,28 @@ for(let i = 0; i < QUARITY_WIDTH; i++){
 
 restart.onclick = () => {
     gamOver.style.display = "none"
-    game.restart()
+    game.restart(game.getSpeed())
 }
+
+// Controls game
+controls.forEach(control => {
+    control.onclick = (e) =>{
+        if(!e.target.closest(".active")){
+            if(e.target.closest(".easy")){
+                clearInterval(setIntervalEl)
+                game.setSpeed(120)
+                game.restart(game.getSpeed())
+            } else if(e.target.closest(".normal")){
+                clearInterval(setIntervalEl)
+                game.setSpeed(90)
+                game.restart(game.getSpeed())
+            } else if(e.target.closest(".hard")){
+                clearInterval(setIntervalEl)
+                game.setSpeed(60)
+                game.restart(game.getSpeed())
+            }
+        }
+        document.querySelector(".control.active").classList.remove("active")
+        e.target.classList.add("active")
+    }
+})
